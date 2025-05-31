@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slipipi - Sleep Quality Improvement App</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="./../static/script/script.js"></script>
+        <link rel="stylesheet" href="../static/style/style.css">
+    </head>
+
+    <body class="bg-gray-50 min-h-screen">
+        <!-- Navigation -->
+        <header class="fixed w-full bg-white shadow-md z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="/" class="flex items-center space-x-2">
+                    <span class="text-2xl">💤</span>
+                    <h1 class="text-xl font-bold text-primary">Slipipi</h1>
+                </a>
+                
+                <div class="flex items-center space-x-8">
+                    <a href="/sleep-insights" class="bg-primary text-white px-4 py-2 rounded-full font-medium hover:bg-secondary transition transform hover:-translate-y-1">
+                        Sleep Insights
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <div class="container mx-auto px-4 pt-24 pb-12 max-w-4xl">
+            <!-- Header Section -->
+            <section class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-indigo-700 mb-3">Sleep Quality Predictor</h1>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Complete this form to receive personalized insights about your sleep quality and recommendations for improvement.
+                </p>
+            </section>
+
+            <!-- Form Sections -->
+            <form action="/predict" method="POST" class="bg-white rounded-xl shadow-md overflow-hidden">
+                <!-- Personal Information Section -->
+                <div class="form-section p-8 border-b border-gray-200">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">1</span>
+                        Personal Information
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Gender -->
+                        <div>
+                            <label for="Gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="Gender" value="Male" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500" required>
+                                    <span class="ml-2 text-gray-700">Male</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="Gender" value="Female" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500">
+                                    <span class="ml-2 text-gray-700">Female</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Age -->
+                        <div>
+                            <label for="Age" class="block text-sm font-medium text-gray-700 mb-1">Age</label>
+                            <input type="number" name="Age" id="Age" min="18" max="100" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border" 
+                                required>
+                        </div>
+
+                        <!-- Occupation -->
+                        <div>
+                            <label for="Occupation" class="block text-sm font-medium text-gray-700 mb-1">Occupation</label>
+                            <select name="Occupation" id="Occupation" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border" required>
+                                <option value="" disabled selected>Select your occupation</option>
+                                <option value="Nurse">Nurse</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Engineer">Engineer</option>
+                                <option value="Lawyer">Lawyer</option>
+                                <option value="Teacher">Teacher</option>
+                                <option value="Accountant">Accountant</option>
+                                <option value="Student">Student</option>
+                                <option value="Salesperson">Salesperson</option>
+                                <option value="Software Engineer">Software Engineer</option>
+                                <option value="Scientist">Scientist</option>
+                                <option value="Sales Representative">Sales Representative</option>
+                                <option value="Manager">Manager</option>
+                            </select>
+                        </div>
+
+                        <!-- BMI Category -->
+                        <div>
+                            <label for="BMICategory" class="block text-sm font-medium text-gray-700 mb-1">BMI Category</label>
+                            <select name="BMI Category" id="BMICategory" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border" required>
+                                <option value="" disabled selected>Select your BMI category</option>
+                                <option value="Normal">Normal</option>
+                                <option value="Overweight">Overweight</option>
+                                <option value="Underweight">Normal Weight</option>
+                                <option value="Obese">Obese</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sleep Habits Section -->
+                <div class="form-section p-8 border-b border-gray-200">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">2</span>
+                        Sleep Habits
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Sleep Duration -->
+                        <div>
+                            <label for="SleepDuration" class="block text-sm font-medium text-gray-700 mb-1">Sleep Duration (hours)</label>
+                            <input type="number" name="Sleep Duration" id="SleepDuration" min="0" max="24" step="0.1" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border" 
+                                required>
+                            <div class="mt-1 text-xs text-gray-500">Average hours per night</div>
+                        </div>
+
+                        <!-- Sleep Disorder -->
+                        <div>
+                            <label for="SleepDisorder" class="block text-sm font-medium text-gray-700 mb-1">Sleep Disorder</label>
+                            <select name="Sleep Disorder" id="SleepDisorder" 
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
+                                <option value="None" selected>None</option>
+                                <option value="Insomnia">Insomnia</option>
+                                <option value="Sleep Apnea">Sleep Apnea</option>
+                            </select>
+                        </div>
+
+                        <!-- Blood Pressure -->
+                        <div>
+                            <label for="BloodPressure" class="block text-sm font-medium text-gray-700 mb-1">Blood Pressure (mmHg)</label>
+                            <div class="flex items-center space-x-2">
+                                <input type="number" name="Blood Pressure-systolic" placeholder="Systolic" 
+                                    class="mt-1 block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
+                                <span>/</span>
+                                <input type="number" name="Blood Pressure-diastolic" placeholder="Diastolic" 
+                                    class="mt-1 block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity & Health Section -->
+                <div class="form-section p-8">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-800 rounded-full w-8 h-8 flex items-center justify-center mr-3">3</span>
+                        Activity & Health Metrics
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Physical Activity Level -->
+                        <div class="bg-white shadow-md rounded-xl p-5 border border-gray-100">
+                            <label for="PhysicalActivity" class="block text-sm font-semibold text-gray-800 mb-4">
+                                Physical Activity Level <span class="text-gray-500 text-xs">(1–100)</span>
+                            </label>
+
+                            <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                                <span>Sedentary</span>
+                                <span>Active</span>
+                            </div>
+
+                            <input type="range" name="Physical Activity Level" id="PhysicalActivityLevel"
+                                min="1" max="100" value="1"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                oninput="document.getElementById('activityValue').innerText = this.value" required>
+
+                            <div class="text-center mt-3 text-sm font-medium text-indigo-600">
+                                Current Level: <span id="activityValue">1</span>
+                            </div>
+                        </div>
+
+                        <!-- Stress Level -->
+                        <div class="bg-white shadow-md rounded-xl p-5 border border-gray-100">
+                            <label for="StressLevel" class="block text-sm font-semibold text-gray-800 mb-4">
+                                Stress Level <span class="text-gray-500 text-xs">(1–10)</span>
+                            </label>
+
+                            <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                                <span>Low</span>
+                                <span>High</span>
+                            </div>
+
+                            <input type="range" name="Stress Level" id="StressLevel"
+                                min="1" max="10" value="1"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                                oninput="document.getElementById('stressValue').innerText = this.value" required>
+
+                            <div class="text-center mt-3 text-sm font-medium text-red-600">
+                                Current Level: <span id="stressValue">1</span>
+                            </div>
+                        </div>
+
+
+                        <!-- Heart Rate -->
+                        <div>
+                            <label for="HeartRate" class="block text-sm font-medium text-gray-700 mb-1">Resting Heart Rate (bpm)</label>
+                            <input type="number" name="Heart Rate" id="HeartRate" min="40" max="120" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border" 
+                                required>
+                        </div>
+
+                        <!-- Daily Steps -->
+                        <div>
+                            <label for="DailySteps" class="block text-sm font-medium text-gray-700 mb-1">Daily Steps</label>
+                            <input type="number" name="Daily Steps" id="DailySteps" min="0" max="30000" 
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 p-2 border" 
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="px-8 py-6 mt-10 flex justify-end">
+                        <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition transform hover:-translate-y-0.5">
+                            Predict My Sleep Quality
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+    </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Slipipi Sleep Quality Report</title>
+    <style>
+        
+    </style>
+    <link rel="stylesheet" href="./../static/style/report.css">
+</head>
+<body>
+    <div class="header">
+        <div class="logo">Slipipi</div>
+        <h1>Sleep Quality Analysis Report</h1>
+        <p>Generated on {{ now.strftime('%B %d, %Y') }}</p>
+    </div>
+    
+    <div class="info-box">
+        This report contains your personalized sleep quality assessment based on the data you provided. 
+        Use these insights to improve your sleep habits and overall wellbeing.
+    </div>
+    
+    <h2>Assessment Summary</h2>
+    <p>
+        Your predicted sleep quality is: 
+        <span class="prediction-badge 
+            {% if prediction == 'Excellent' %}excellent
+            {% elif prediction == 'Good' %}good
+            {% elif prediction == 'Fair' %}fair
+            {% elif prediction == 'Poor' %}poor
+            {% else %}very-poor{% endif %}">
+            {{ prediction }}
+        </span>
+    </p>
+    
+    <p>
+        {% if prediction == 'Excellent' %}
+        Congratulations! Your sleep habits appear to be excellent. Keep up the good work and consider the recommendations below to maintain your sleep quality.
+        {% elif prediction == 'Good' %}
+        Your sleep quality is good, but there's room for improvement. The recommendations below will help you achieve even better sleep.
+        {% elif prediction == 'Fair' %}
+        Your sleep quality is average. The recommendations below will help you improve your sleep patterns and overall restfulness.
+        {% elif prediction == 'Poor' %}
+        Your sleep quality needs attention. Please consider the recommendations below and consult with a healthcare professional if sleep issues persist.
+        {% else %}
+        Your sleep quality requires immediate improvement. The recommendations below are essential, and you may want to consult with a sleep specialist.
+        {% endif %}
+    </p>
+    
+    <h2>Your Sleep Data</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for col, val in features %}
+            <tr>
+                <td><strong>{{ col }}</strong></td>
+                <td>
+                    {% if col == 'Physical Activity Level' %}
+                        {{ val }} / 100
+                    {% elif col == 'Stress Level' %}
+                        {{ val }} / 10
+                    {% else %}
+                        {{ val }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <h2>Personalized Recommendations</h2>
+    <ul class="recommendations">
+        {% if prediction == 'Excellent' %}
+            <li>Maintain your current sleep habits as they're working well for you</li>
+            <li>Consider tracking your sleep consistency for long-term benefits</li>
+            <li>Continue monitoring your sleep patterns for any changes</li>
+        {% elif prediction == 'Good' %}
+            <li>Try to go to bed 30 minutes earlier to improve sleep duration</li>
+            <li>Reduce screen time before bed for better sleep quality</li>
+            <li>Establish a consistent bedtime routine</li>
+        {% elif prediction == 'Fair' %}
+            <li>Establish a consistent sleep schedule, even on weekends</li>
+            <li>Consider relaxation techniques to reduce stress before bedtime</li>
+            <li>Evaluate your sleep environment for noise and light disturbances</li>
+        {% elif prediction == 'Poor' %}
+            <li>Evaluate your sleep environment for disturbances</li>
+            <li>Consult with a healthcare provider about your sleep patterns</li>
+            <li>Consider keeping a sleep diary to track patterns</li>
+        {% else %}
+            <li>Prioritize improving your sleep habits immediately</li>
+            <li>Consider professional consultation for sleep assessment</li>
+            <li>Evaluate all lifestyle factors affecting your sleep</li>
+        {% endif %}
+    </ul>
+</body>
+</html>

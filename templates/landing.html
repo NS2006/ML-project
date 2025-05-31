@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slipipi - Sleep Quality Improvement App</title>
+        
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="./../static/script/script.js"></script>
+        <link rel="stylesheet" href="./../static/style/style.css">
+    </head>
+    <body class="font-poppins text-text bg-white">
+        <!-- Navigation -->
+        <header class="fixed w-full bg-white shadow-md z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="/" class="flex items-center space-x-2">
+                    <span class="text-2xl">💤</span>
+                    <h1 class="text-xl font-bold text-primary">Slipipi</h1>
+                </a>
+                
+                <div class="flex items-center space-x-8">
+                    <a href="#features" class="font-medium hover:text-primary transition">Features</a>
+                    <a href="#how-it-works" class="font-medium hover:text-primary transition">How It Works</a>
+                    <a href="/sleep-insights" class="bg-primary text-white px-4 py-2 rounded-full font-medium hover:bg-secondary transition transform hover:-translate-y-1">
+                        Sleep Insights
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+
+        <!-- Hero Section -->
+        <section class="bg-white pt-40 pb-40">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+                
+                <!-- Text Content -->
+                <div class="md:w-1/2 mb-16 md:mb-0">
+                    <h2 class="text-4xl md:text-5xl font-bold text-dark leading-tight mb-6">
+                        Sleep Better,<br><span class="text-primary">Live Brighter</span>
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8 max-w-xl">
+                        Slipipi gives you personalized insights, tracks your sleep patterns, and offers expert-backed guidance to help you rest deeper and wake up refreshed.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="/sleep-insights" class="bg-primary text-white px-6 py-3 rounded-full font-semibold hover:bg-secondary transition transform hover:-translate-y-1 shadow-lg">
+                            Start Your Sleep Insight
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="md:w-1/2">
+                    <img src="./../static/assets/sleeping_peacefully.png" alt="Person sleeping peacefully" class="w-full max-w-md mx-auto animate-float drop-shadow-xl">
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-gradient-to-br from-gray-50 to-gray-200">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl md:text-4xl font-bold text-center text-dark mb-16">Why Choose Slipipi?</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition hover:-translate-y-2">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-dark mb-3">AI-Powered Sleep Analysis</h4>
+                        <p class="text-gray-600">
+                            Instantly assess your sleep quality using a machine learning model trained on real-world data.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition hover:-translate-y-2">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-dark mb-3">Sleep Quality Score</h4>
+                        <p class="text-gray-600">
+                            Discover whether your sleep is good, moderate, or poor — instantly, based on your input.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition hover:-translate-y-2">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-dark mb-3">Personalized Recommendations</h4>
+                        <p class="text-gray-600">
+                            Get instant, practical advice based on your sleep quality — from increasing activity to reducing stress.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 4 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition hover:-translate-y-2">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-dark mb-3">Quick, Simple Input</h4>
+                        <p class="text-gray-600">
+                            Just fill out one short form — no account needed, no tracking. Your results and suggestions are delivered instantly.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl md:text-4xl font-bold text-center text-dark mb-16">How Slipipi Works</h3>
+                
+                <div class="max-w-3xl mx-auto space-y-12">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col md:flex-row items-start bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-transform hover:scale-[1.02]">
+                        <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4 md:mb-0 md:mr-6">
+                            1
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-dark mb-2">Fill Out a Quick Form</h4>
+                            <p class="text-gray-600">
+                                Answer a short set of questions about your daily routine, sleep duration, and general habits.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="flex flex-col md:flex-row items-start bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-transform hover:scale-[1.02]">
+                        <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4 md:mb-0 md:mr-6">
+                            2
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-dark mb-2">Let the AI Analyze</h4>
+                            <p class="text-gray-600">
+                                Our machine learning model instantly evaluates your responses to predict your sleep quality.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="flex flex-col md:flex-row items-start bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-transform hover:scale-[1.02]">
+                        <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4 md:mb-0 md:mr-6">
+                            3
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-dark mb-2">Understand Your Sleep Score</h4>
+                            <p class="text-gray-600">
+                                Instantly see whether your sleep is rated as Good, Fair, or Poor — no waiting, no setup.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="flex flex-col md:flex-row items-start bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-transform hover:scale-[1.02]">
+                        <div class="bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-4 md:mb-0 md:mr-6">
+                            4
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-dark mb-2">Get Actionable Tips</h4>
+                            <p class="text-gray-600">
+                                Receive personalized, science-informed suggestions tailored to your current sleep quality.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Footer Section -->
+        <footer class="bg-dark text-white pt-16 pb-8">
+            <div class="container mx-auto px-6">
+
+                <!-- Grid Container -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+
+                    <!-- Logo Column -->
+                    <div>
+                        <a href="/" class="block mb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-2xl">💤</span>
+                                <h2 class="text-xl font-bold">Slipipi</h2>
+                            </div>
+                        </a>
+                        <p class="text-gray-400">
+                            Helping you achieve better sleep for a better life.
+                        </p>
+                    </div>
+
+                    <!-- Developed By -->
+                    <div class="md:col-span-3">
+                        <h3 class="text-lg font-semibold mb-4">Developed By:</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-gray-300">
+                            <div>
+                                <p class="font-semibold text-white">Joshua Putra Pratama</p>
+                                <p class="text-sm text-gray-400">2702238792</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-white">Niko Sutiono</p>
+                                <p class="text-sm text-gray-400">2702215271</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-white">Terrence Willem Susilo</p>
+                                <p class="text-sm text-gray-400">2702223393</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-white">Wiratama Jesaya Suwandi</p>
+                                <p class="text-sm text-gray-400">2702252821</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+    </body>
+</html>

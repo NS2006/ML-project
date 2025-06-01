@@ -1,124 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slipipi - Your Sleep Quality Results</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .quality-excellent { background-color: #10B981; }
-        .quality-good { background-color: #3B82F6; }
-        .quality-fair { background-color: #F59E0B; }
-        .quality-poor { background-color: #EF4444; }
-        .quality-very-poor { background-color: #7C3AED; }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slipipi - Your Sleep Quality Results</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<body class="bg-gray-50 min-h-screen font-poppins">
-    <div class="container mx-auto px-4 py-12 max-w-4xl">
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-3xl md:text-4xl font-bold text-indigo-700 mb-3">Your Sleep Quality Report</h1>
-            <p class="text-lg text-gray-600">Here's your personalized sleep analysis based on your inputs</p>
-        </div>
+        <script src="./../static/script/script.js"></script>
+        <link rel="stylesheet" href="../static/style/style.css">
 
-        <!-- Submitted Data Card -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden border border-amber-50">
-            <div class="p-8">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">Your Submitted Data</h2>
-                
-                <div class="grid md:grid-cols-2 gap-6">
-                    {% for col, val in features %}
-                    <div class="border-b border-gray-100 pb-4">
-                        <h3 class="text-sm font-medium text-gray-500">{{ col }}</h3>
-                        <p class="mt-1 text-lg font-medium text-gray-900">
-                            {% if col == 'Physical Activity Level' %}
-                                {{ val }} / 100
-                            {% elif col == 'Stress Level' %}
-                                {{ val }} / 10
-                            {% else %}
-                                {{ val }}
-                            {% endif %}
-                        </p>
-                    </div>
-                    {% endfor %}
+        <style>
+            .quality-excellent { background-color: #10B981; }
+            .quality-good { background-color: #3B82F6; }
+            .quality-fair { background-color: #F59E0B; }
+            .quality-poor { background-color: #EF4444; }
+            .quality-very-poor { background-color: #7C3AED; }
+        </style>
+    </head>
+
+    <body class="bg-gray-50 min-h-screen font-poppins">
+        <!-- Navigation -->
+        <header class="fixed w-full bg-white shadow-md z-50">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+                <a href="/" class="flex items-center space-x-2">
+                    <span class="text-2xl">💤</span>
+                    <h1 class="text-xl font-bold text-primary">Slipipi</h1>
+                </a>
+
+                <div class="flex items-center space-x-8">
+                    <a href="/sleep-insights" class="bg-primary text-white px-4 py-2 rounded-full font-medium hover:bg-secondary transition transform hover:-translate-y-1">
+                        Sleep Insights
+                    </a>
                 </div>
+            </nav>
+        </header>
+
+        <div class="container mx-auto px-4 py-12 max-w-4xl pt-24">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl font-bold text-indigo-700 mb-3">Your Sleep Quality Report</h1>
+                <p class="text-lg text-gray-600">Here's your personalized sleep analysis based on your inputs</p>
             </div>
-        </div>
 
-        <!-- Prediction Result Card -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8 mt-10 border border-amber-50">
-            <div class="p-8">
-                <div class="flex flex-col md:flex-row items-center justify-between mb-6">
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-4 md:mb-0">Sleep Quality Prediction</h2>
-                    {% if prediction %}
-                    <span class="px-4 py-2 rounded-full text-white font-medium 
-                        {% if prediction == 'Excellent' %}quality-excellent
-                        {% elif prediction == 'Good' %}quality-good
-                        {% elif prediction == 'Fair' %}quality-fair
-                        {% elif prediction == 'Poor' %}quality-poor
-                        {% else %}quality-very-poor{% endif %}">
-                        {{ prediction }}
-                    </span>
-                    {% endif %}
-                </div>
+            <!-- Submitted Data Card -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border border-amber-50">
+                <div class="p-8">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6">Your Submitted Data</h2>
 
-                <div class="bg-indigo-50 border-l-4 border-indigo-400 p-4">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-info-circle text-indigo-400 mt-1"></i>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm text-indigo-700">
-                                Based on your inputs, here's our assessment of your sleep quality.
-                                {% if prediction == 'Excellent' %}You're getting great sleep!
-                                {% elif prediction == 'Good' %}Your sleep is good but could be improved!
-                                {% elif prediction == 'Fair' %}Your sleep quality is average and needs attention.
-                                {% elif prediction == 'Poor' %}Your sleep quality needs significant improvement.
-                                {% else %}Your sleep quality requires immediate attention.{% endif %}
+                    <div class="grid md:grid-cols-2 gap-6">
+                        {% for col, val in features %}
+                        <div class="border-b border-gray-100 pb-4">
+                            <h3 class="text-sm font-medium text-gray-500">{{ col }}</h3>
+                            <p class="mt-1 text-lg font-medium text-gray-900">
+                                {% if col == 'Physical Activity Level' %}
+                                    {{ val }} / 100
+                                {% elif col == 'Stress Level' %}
+                                    {{ val }} / 10
+                                {% else %}
+                                    {{ val }}
+                                {% endif %}
                             </p>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-            
-            <!-- Recommendations Section -->
-            <div class="bg-white px-8 py-6">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">Recommendations</h3>
-                <ul class="list-disc pl-5 space-y-2 text-gray-600">
-                    {% if prediction == 'Excellent' %}
-                        <li>Maintain your current sleep habits as they're working well for you</li>
-                        <li>Consider tracking your sleep consistency for long-term benefits</li>
-                    {% elif prediction == 'Good' %}
-                        <li>Try to go to bed 30 minutes earlier to improve sleep duration</li>
-                        <li>Reduce screen time before bed for better sleep quality</li>
-                    {% elif prediction == 'Fair' %}
-                        <li>Establish a consistent sleep schedule, even on weekends</li>
-                        <li>Consider relaxation techniques to reduce stress before bedtime</li>
-                    {% elif prediction == 'Poor' %}
-                        <li>Evaluate your sleep environment for disturbances</li>
-                        <li>Consult with a healthcare provider about your sleep patterns</li>
-                    {% else %}
-                        <li>Prioritize improving your sleep habits immediately</li>
-                        <li>Consider professional consultation for sleep assessment</li>
-                    {% endif %}
-                </ul>
+
+            <!-- Prediction Result Card -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8 mt-10 border border-amber-50">
+                <div class="p-8">
+                    <div class="flex flex-col md:flex-row items-center justify-between mb-6">
+                        <h2 class="text-2xl font-semibold text-gray-800 mb-4 md:mb-0">Sleep Quality Prediction</h2>
+                        {% if prediction %}
+                        <span class="px-4 py-2 rounded-full text-white font-medium
+                            {% if prediction == 'Excellent' %}quality-excellent
+                            {% elif prediction == 'Good' %}quality-good
+                            {% elif prediction == 'Fair' %}quality-fair
+                            {% elif prediction == 'Poor' %}quality-poor
+                            {% else %}quality-very-poor{% endif %}">
+                            {{ prediction }}
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="bg-indigo-50 border-l-4 border-indigo-400 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-info-circle text-indigo-400 mt-1"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-indigo-700">
+                                    Based on your inputs, here's our assessment of your sleep quality.
+                                    {% if prediction == 'Excellent' %}You're getting great sleep!
+                                    {% elif prediction == 'Good' %}Your sleep is good but could be improved!
+                                    {% elif prediction == 'Fair' %}Your sleep quality is average and needs attention.
+                                    {% elif prediction == 'Poor' %}Your sleep quality needs significant improvement.
+                                    {% else %}Your sleep quality requires immediate attention.{% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations Section -->
+                <div class="bg-white px-8 py-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Recommendations</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                        {% for recommendation in recommendations %}
+                        <li>
+                            {{ recommendation }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                    <i class="fas fa-home mr-2"></i> Return Home
+                </a>
+                <a href="/download-report?prediction={{ prediction }}&features={{ features_json | urlencode }}"
+                class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50">
+                    <i class="fas fa-download mr-2"></i> Download Your Report
+                </a>
             </div>
         </div>
 
+        <!-- Footer Section -->
+        <footer class="bg-dark text-white pt-16 pb-8">
+            <div class="container mx-auto px-6">
 
-        <!-- Action Buttons -->
-        <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <a href="/" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
-                <i class="fas fa-home mr-2"></i> Return Home
-            </a>
-            <a href="/download-report?prediction={{ prediction }}&features={{ features_json | urlencode }}" 
-            class="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50">
-                <i class="fas fa-download mr-2"></i> Download Your Report
-            </a>
-        </div>
-    </div>
-</body>
+                <!-- Grid Container -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+
+                    <!-- Logo Column -->
+                    <div>
+                        <a href="/" class="block mb-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-2xl">💤</span>
+                                <h2 class="text-xl font-bold">Slipipi</h2>
+                            </div>
+                        </a>
+                        <p class="text-gray-400">
+                            Helping you achieve better sleep for a better life.
+                        </p>
+                    </div>
+
+                    <!-- Developed By -->
+                    <div class="md:col-span-3">
+                        <h3 class="text-lg font-semibold mb-4">Developed By:</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-gray-300">
+                            <div>
+                                <p class="font-semibold text-white">Joshua Putra Pratama</p>
+                                <p class="text-sm text-gray-400">2702238792</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-white">Niko Sutiono</p>
+                                <p class="text-sm text-gray-400">2702215271</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-white">Terrence Willem Susilo</p>
+                                <p class="text-sm text-gray-400">2702223393</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-white">Wiratama Jesaya Suwandi</p>
+                                <p class="text-sm text-gray-400">2702252821</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
 </html>

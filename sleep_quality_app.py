@@ -1,11 +1,9 @@
 from datetime import datetime
-import os
 from flask import Flask, json, render_template, request, make_response
 import pickle
 import pandas as pd
 from xhtml2pdf import pisa  #pip install reportlab xhtml2pdf
 from io import BytesIO
-
 
 app = Flask(__name__)
 
@@ -61,11 +59,14 @@ def predict():
         final_input = pd.DataFrame([features], columns=columns)
         prediction = model.predict(final_input)[0]
 
+        recommendations = getRecommendations(feature_pairs, prediction)
+
         return render_template(
             'result.html', 
             prediction=prediction,
             features=feature_pairs,
-            features_json=json.dumps(features_dict)  # Properly serialized JSON
+            recommendations=recommendations,
+            features_json=json.dumps(features_dict)
         )
 
     except Exception as e:
@@ -84,11 +85,14 @@ def download_report():
         
         # Convert back to the pairs format if needed
         feature_pairs = list(features.items())
+
+        recommendations = getRecommendations(feature_pairs, prediction)
         
         html = render_template(
             'report.html',
             prediction=prediction,
             features=feature_pairs,
+            recommendations=recommendations,
             now=datetime.now()
         )
         
@@ -106,6 +110,38 @@ def download_report():
         
     except Exception as e:
         return f"Error generating report: {str(e)}", 500
+
+def getRecommendations(feature_pairs, prediction):
+    rec_db = pd.read_csv('sleep_recommendations.csv') 
+    
+    recommendations = []
+    
+    # Get base recommendations (where feature and condition are empty)
+    base_recs = rec_db[
+        (rec_db['prediction_level'] == prediction) &
+        (rec_db['feature'].isna()) &
+        (rec_db['condition'].isna())
+    ]
+    recommendations.extend(base_recs['recommendation'].tolist())
+    
+    # Get feature-specific recommendations
+    for col, val in feature_pairs:
+        # Get rows for this feature that have conditions
+        feature_rows = rec_db[
+            (rec_db['feature'] == col) & 
+            (rec_db['condition'].notna())
+        ]
+        
+        # Evaluate each condition
+        for _, row in feature_rows.iterrows():
+            try:
+                if eval(row['condition'], {'val': val}):
+                    recommendations.append(row['recommendation'])
+            except:
+                continue
+    
+    # max 10
+    return list(set(recommendations))[:10]
 
 if __name__ == '__main__':
     app.run(debug=True)

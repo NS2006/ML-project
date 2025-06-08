@@ -73,18 +73,61 @@
                 <div class="p-8">
                     <div class="flex flex-col md:flex-row items-center justify-between mb-6">
                         <h2 class="text-2xl font-semibold text-gray-800 mb-4 md:mb-0">Sleep Quality Prediction</h2>
-                        {% if prediction %}
-                        <span class="px-4 py-2 rounded-full text-white font-medium
-                            {% if prediction == 'Excellent' %}quality-excellent
-                            {% elif prediction == 'Good' %}quality-good
-                            {% elif prediction == 'Fair' %}quality-fair
-                            {% elif prediction == 'Poor' %}quality-poor
-                            {% else %}quality-very-poor{% endif %}">
-                            {{ prediction }}
-                        </span>
-                        {% endif %}
                     </div>
+                    
+                    {% set radius = 45 %}
+                    {% set circumference = 2 * 3.1416 * radius %}
+                    {% set progress = prediction / 10 %}
+                    {% set offset = circumference * (1 - progress) %}
 
+                    <div class="flex flex-col items-center mb-6">
+                        <div class="relative w-44 h-44">
+                            <svg class="transform -rotate-90 w-full h-full" viewBox="0 0 120 120">
+                                <!-- Define gradient -->
+                                <defs>
+                                    <linearGradient id="grad-progress" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#6366F1" />     <!-- Indigo -->
+                                        <stop offset="100%" stop-color="#22D3EE" />   <!-- Cyan -->
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Background circle -->
+                                <circle
+                                    class="text-gray-200"
+                                    stroke-width="10"
+                                    stroke="currentColor"
+                                    fill="transparent"
+                                    r="{{ radius }}"
+                                    cx="60"
+                                    cy="60"
+                                />
+
+                                <!-- Progress circle with gradient -->
+                                <circle
+                                    stroke="url(#grad-progress)"
+                                    stroke-width="10"
+                                    stroke-dasharray="{{ circumference }}"
+                                    stroke-dashoffset="{{ offset }}"
+                                    stroke-linecap="round"
+                                    fill="transparent"
+                                    r="{{ radius }}"
+                                    cx="60"
+                                    cy="60"
+                                    style="transition: stroke-dashoffset 1s ease-out;"
+                                />
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-3xl font-bold text-gray-800">{{ prediction }}/10</span>
+                            </div>
+                        </div>
+
+                        <!-- Labels under the circle -->
+                        <div class="w-full flex justify-between mt-2 px-6 text-sm text-gray-600 font-medium select-none">
+                            <span>Poor (0)</span>
+                            <span>Excellent (10)</span>
+                        </div>
+                    </div>
+ 
                     <div class="bg-indigo-50 border-l-4 border-indigo-400 p-4">
                         <div class="flex">
                             <div class="flex-shrink-0">
@@ -93,10 +136,10 @@
                             <div class="ml-3">
                                 <p class="text-sm text-indigo-700">
                                     Based on your inputs, here's our assessment of your sleep quality.
-                                    {% if prediction == 'Excellent' %}You're getting great sleep!
-                                    {% elif prediction == 'Good' %}Your sleep is good but could be improved!
-                                    {% elif prediction == 'Fair' %}Your sleep quality is average and needs attention.
-                                    {% elif prediction == 'Poor' %}Your sleep quality needs significant improvement.
+                                    {% if prediction >= 9 %}You're getting great sleep!
+                                    {% elif prediction >= 7 %}Your sleep is good but could be improved!
+                                    {% elif prediction >= 5 %}Your sleep quality is average and needs attention.
+                                    {% elif prediction >= 3 %}Your sleep quality needs significant improvement.
                                     {% else %}Your sleep quality requires immediate attention.{% endif %}
                                 </p>
                             </div>

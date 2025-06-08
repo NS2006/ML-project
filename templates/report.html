@@ -87,12 +87,6 @@
             margin-bottom: 2px;
             list-style-type: disc;
         }
-
-        .excellent { background-color: #2e7d32; }
-        .good { background-color: #1976d2; }
-        .fair { background-color: #ff8f00; }
-        .poor { background-color: #d32f2f; }
-        .very-poor { background-color: #6a1b9a; }
     </style>
 </head>
 <body>
@@ -110,24 +104,20 @@
     <h2>Assessment Summary</h2>
     <p>
         Your predicted sleep quality is:
-        <span class="prediction-badge
-            {% if prediction == 'Excellent' %}excellent
-            {% elif prediction == 'Good' %}good
-            {% elif prediction == 'Fair' %}fair
-            {% elif prediction == 'Poor' %}poor
-            {% else %}very-poor{% endif %}">
+        <span class="prediction-badge fa-bold">
             {{ prediction }}
         </span>
     </p>
 
     <p>
-        {% if prediction == 'Excellent' %}
+        {% set prediction = prediction|int %}
+        {% if prediction >= 9 %}
         Congratulations! Your sleep habits appear to be excellent. Keep up the good work and consider the recommendations below to maintain your sleep quality.
-        {% elif prediction == 'Good' %}
+        {% elif prediction >= 7 %}
         Your sleep quality is good, but there's room for improvement. The recommendations below will help you achieve even better sleep.
-        {% elif prediction == 'Fair' %}
+        {% elif prediction >= 5 %}
         Your sleep quality is average. The recommendations below will help you improve your sleep patterns and overall restfulness.
-        {% elif prediction == 'Poor' %}
+        {% elif prediction >= 3 %}
         Your sleep quality needs attention. Please consider the recommendations below and consult with a healthcare professional if sleep issues persist.
         {% else %}
         Your sleep quality requires immediate improvement. The recommendations below are essential, and you may want to consult with a sleep specialist.
